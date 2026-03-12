@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en" id="top">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MC.FMPT.NET — Minecraft 1.21 Pre-Launch</title>
+  <meta name="description" content="MC.FMPT.NET — a Minecraft 1.21 pre-launch page for FMPT students. Vote to help launch the server at play.fmpt.net after 50 submissions." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --gold:#FFA700;
+      --deep:#071B33;
+      --blue:#0C4D9B;
+      --text:#F7F4EA;
+      --muted:#C7D5E6;
+      --pixel-dark:#1b140c;
+      --pixel-mid:#3d2d17;
+      --pixel-light:#8d6a36;
+      --grass:#5ea13c;
+      --grass-dark:#3d7724;
+      --leaf:#4f8f4c;
+      --stone:#7b7f87;
+      --stone-dark:#5e6269;
+      --lava:#ff7a00;
+      --danger:#ff5c5c;
+      --heal:#96dc57;
+      --sky:#9fd7ff;
+      --night:#08111f;
+      --shadow:0 10px 0 rgba(0,0,0,.22), 0 18px 32px rgba(0,0,0,.25);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Inter,system-ui,sans-serif;
+      color:var(--text);
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(255,167,0,.14), transparent 30%),
+        radial-gradient(circle at 80% 10%, rgba(12,77,155,.18), transparent 35%),
+        linear-gradient(180deg, #0b182d 0%, #13253e 20%, #101b2d 45%, #0c1421 100%);
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.08;
+      background-image:
+        linear-gradient(rgba(255,255,255,.4) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.4) 1px, transparent 1px);
+      background-size:24px 24px;
+      mix-blend-mode:screen;
+    }
+
+    a{color:inherit;text-decoration:none}
+
+    .pixel-shell{
+      width:min(1260px, calc(100% - 28px));
+      margin-inline:auto;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:linear-gradient(180deg, rgba(7,27,51,.95), rgba(7,27,51,.88));
+      border-bottom:4px solid #000;
+      box-shadow:0 6px 0 rgba(0,0,0,.25);
+      backdrop-filter:blur(8px);
+    }
+
+    .topbar-inner{
+      width:min(1260px, calc(100% - 28px));
+      margin-inline:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:14px 0;
+    }
+
+    .brand{
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+
+    .brand-kicker{
+      font:700 12px/1 Inter,system-ui,sans-serif;
+      letter-spacing:.08em;
+      color:#dce7f5;
+      text-transform:uppercase;
+    }
+
+    .brand-name{
+      font:400 18px/1.25 "Press Start 2P", monospace;
+      color:#fff1b7;
+      text-shadow:3px 3px 0 rgba(0,0,0,.35);
+    }
+
+    .brand-sub{
+      font:600 12px/1.35 Inter,system-ui,sans-serif;
+      color:#b7c7da;
+    }
+
+    .hud{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+      gap:10px;
+    }
+
+    .hud-pill,
+    .hud-btn{
+      border:4px solid #000;
+      box-shadow:var(--shadow);
+      padding:12px 14px;
+      background:#233754;
+      color:#fff;
+      font-weight:800;
+      font-size:13px;
+      line-height:1;
+    }
+
+    .hud-pill strong{color:#b8ff8e}
+    .hud-btn{
+      background:linear-gradient(180deg, #ffd35f, #ffae00);
+      color:#312100;
+      transition:transform .15s ease;
+    }
+
+    .hud-btn:hover{transform:translateY(-2px)}
+
+    .hero{
+      position:relative;
+      padding:48px 0 18px;
+    }
+
+    .skyline{
+      position:relative;
+      overflow:hidden;
+      border:6px solid #000;
+      box-shadow:var(--shadow);
+      background:
+        linear-gradient(180deg, rgba(159,215,255,.95), rgba(56,126,186,.85) 48%, rgba(17,48,84,.95) 100%);
+      min-height:520px;
+    }
+
+    .skyline::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(255,255,255,.9) 0 2px, transparent 3px),
+        radial-gradient(circle at 28% 14%, rgba(255,255,255,.7) 0 2px, transparent 3px),
+        radial-gradient(circle at 82% 18%, rgba(255,255,255,.85) 0 2px, transparent 3px),
+        radial-gradient(circle at 73% 10%, rgba(255,255,255,.65) 0 2px, transparent 3px),
+        linear-gradient(180deg, rgba(255,255,255,.08), transparent 35%);
+      opacity:.75;
+    }
+
+    .mountains{
+      position:absolute;
+      inset:auto 0 120px 0;
+      height:210px;
+      background:
+        linear-gradient(135deg, transparent 0 8%, #27405f 8% 18%, transparent 18% 25%, #20344d 25% 38%, transparent 38% 48%, #1c2d43 48% 62%, transparent 62% 70%, #20344d 70% 82%, transparent 82%),
+        linear-gradient(180deg, transparent, rgba(0,0,0,.2));
+      opacity:.88;
+    }
+
+    .terrain{
+      position:absolute;
+      left:0; right:0; bottom:0;
+      height:150px;
+      background:
+        linear-gradient(180deg, var(--grass) 0 18px, var(--grass-dark) 18px 26px, var(--pixel-mid) 26px 100%);
+      border-top:6px solid #000;
+    }
+
+    .terrain::before{
+      content:"";
+      position:absolute;
+      inset:28px 0 0 0;
+      opacity:.22;
+      background-image:
+        linear-gradient(90deg, rgba(255,255,255,.22) 0 14px, transparent 14px 28px),
+        linear-gradient(rgba(0,0,0,.25) 0 14px, transparent 14px 28px);
+      background-size:28px 28px;
+      background-position:0 0, 14px 14px;
+    }
+
+    .terrain::after{
+      content:"";
+      position:absolute;
+      right:56px;
+      bottom:26px;
+      width:148px;
+      height:108px;
+      background:
+        linear-gradient(180deg, #f5fafc 0 30px, #d0e4ef 30px 34px, #a36b3a 34px 100%);
+      border:6px solid #000;
+      box-shadow:inset 0 -12px 0 rgba(0,0,0,.14);
+      clip-path:polygon(0 28%, 50% 0, 100% 28%, 100% 100%, 0 100%);
+      opacity:.95;
+    }
+
+    .cross{
+      position:absolute;
+      right:98px;
+      bottom:84px;
+      width:50px;
+      height:50px;
+      z-index:2;
+    }
+
+    .cross::before,
+    .cross::after{
+      content:"";
+      position:absolute;
+      background:#ff4b4b;
+      border:4px solid #000;
+    }
+
+    .cross::before{left:16px; top:0; width:18px; height:50px}
+    .cross::after{left:0; top:16px; width:50px; height:18px}
+
+    .hero-content{
+      position:relative;
+      z-index:2;
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:26px;
+      padding:48px 34px 182px;
+    }
+
+    .title-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:18px;
+      padding:10px 14px;
+      border:4px solid #000;
+      background:#1f4d84;
+      box-shadow:var(--shadow);
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#d9ebff;
+      font-size:12px;
+    }
+
+    .hero-title{
+      font:400 clamp(30px, 5vw, 64px)/1.15 "Press Start 2P", monospace;
+      color:#fff3b3;
+      text-shadow:4px 4px 0 rgba(0,0,0,.32);
+      max-width:12ch;
+    }
+
+    .hero-title em{
+      font-style:normal;
+      color:#9df171;
+    }
+
+    .hero-copy{
+      margin-top:18px;
+      max-width:62ch;
+      font-size:17px;
+      line-height:1.72;
+      color:#f7fbff;
+      text-shadow:0 1px 0 rgba(0,0,0,.18);
+    }
+
+    .hero-copy strong{color:#fff1b7}
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:24px;
+    }
+
+    .pixel-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      border:4px solid #000;
+      padding:16px 18px;
+      font-weight:900;
+      font-size:14px;
+      box-shadow:var(--shadow);
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      transition:transform .15s ease;
+    }
+
+    .pixel-btn:hover{transform:translateY(-2px)}
+    .pixel-btn.primary{background:linear-gradient(180deg, #ffd35f, #ffae00); color:#352100}
+    .pixel-btn.secondary{background:linear-gradient(180deg, #94d26f, #63a542); color:#0d2206}
+    .pixel-btn.dark{background:linear-gradient(180deg, #31517d, #213754); color:#fff}
+
+    .hero-side{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      align-self:start;
+    }
+
+    .pixel-panel{
+      border:6px solid #000;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)),
+        #1b2940;
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+
+    .pixel-panel h3{
+      font:400 16px/1.5 "Press Start 2P", monospace;
+      color:#fff1b7;
+      margin-bottom:12px;
+    }
+
+    .pixel-panel p,
+    .pixel-panel li,
+    .pixel-panel label,
+    .pixel-panel small{
+      color:#e9f4ff;
+      line-height:1.65;
+      font-size:15px;
+    }
+
+    .server-ip{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:14px;
+      border:4px solid #000;
+      background:linear-gradient(180deg, #7cd45f, #4f8f34);
+      box-shadow:inset 0 -8px 0 rgba(0,0,0,.18);
+      color:#0e2508;
+      font-weight:900;
+    }
+
+    .server-ip code{
+      font-family:"Press Start 2P", monospace;
+      font-size:13px;
+      white-space:nowrap;
+    }
+
+    .pixel-line{
+      height:24px;
+      margin:24px auto 0;
+      width:min(1260px, calc(100% - 28px));
+      background:
+        linear-gradient(180deg, var(--grass) 0 8px, var(--grass-dark) 8px 12px, var(--pixel-mid) 12px 100%);
+      border:4px solid #000;
+      box-shadow:var(--shadow);
+    }
+
+    .section{
+      padding:34px 0 0;
+    }
+
+    .section-frame{
+      border:6px solid #000;
+      box-shadow:var(--shadow);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)),
+        #101b2d;
+      overflow:hidden;
+    }
+
+    .section-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:18px 20px;
+      background:
+        linear-gradient(180deg, #36547f, #263b5c);
+      border-bottom:6px solid #000;
+    }
+
+    .section-head h2{
+      font:400 clamp(16px, 2vw, 24px)/1.3 "Press Start 2P", monospace;
+      color:#fff1b7;
+      max-width:22ch;
+    }
+
+    .section-head p{
+      font-size:14px;
+      color:#dce8f7;
+      max-width:52ch;
+      text-align:right;
+      line-height:1.55;
+    }
+
+    .announcement-strip{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      border-bottom:6px solid #000;
+    }
+
+    .tile{
+      min-height:100%;
+      padding:20px;
+      border-right:4px solid #000;
+      background:#172439;
+    }
+
+    .tile:last-child{border-right:none}
+    .tile strong{
+      display:block;
+      margin-bottom:8px;
+      color:#fff1b7;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+
+    .tile p{
+      color:#e5eef9;
+      line-height:1.7;
+      font-size:15px;
+    }
+
+    .crafting-zone{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:0;
+    }
+
+    .feature-board,
+    .feature-list,
+    .faq-board,
+    .vote-board{
+      padding:24px;
+      border-right:4px solid #000;
+      border-bottom:4px solid #000;
+    }
+
+    .feature-list,
+    .vote-board{border-right:none}
+
+    .section-mini{
+      font:400 15px/1.6 "Press Start 2P", monospace;
+      color:#fff1b7;
+      margin-bottom:16px;
+    }
+
+    .board-copy{
+      font-size:16px;
+      line-height:1.75;
+      color:#e9f4ff;
+    }
+
+    .inventory-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .slot{
+      border:4px solid #000;
+      background:linear-gradient(180deg, #2a3d22, #1d2d19);
+      padding:14px;
+      box-shadow:0 8px 0 rgba(0,0,0,.18);
+    }
+
+    .slot .name{
+      display:block;
+      margin-bottom:8px;
+      font-weight:900;
+      color:#bff58d;
+      font-size:14px;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+    }
+
+    .slot p{
+      font-size:14px;
+      line-height:1.7;
+      color:#edf7ff;
+    }
+
+    .med-list{
+      list-style:none;
+      display:grid;
+      gap:12px;
+    }
+
+    .med-list li{
+      border:4px solid #000;
+      background:linear-gradient(180deg, #3d2d17, #251a0d);
+      padding:14px 15px;
+      box-shadow:0 8px 0 rgba(0,0,0,.18);
+      line-height:1.7;
+      color:#fff8ea;
+    }
+
+    .med-list b{color:#ffd977}
+
+    .progress-wrap{
+      margin-top:18px;
+      border:4px solid #000;
+      background:#22344f;
+      padding:12px;
+    }
+
+    .progress-meta{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+      color:#e7f1fd;
+      font-weight:800;
+      font-size:13px;
+      text-transform:uppercase;
+    }
+
+    .progress-bar{
+      height:30px;
+      border:4px solid #000;
+      background:#121d2e;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .progress-fill{
+      height:100%;
+      width:0%;
+      background:
+        repeating-linear-gradient(90deg, #84e05d 0 18px, #63b442 18px 36px);
+      box-shadow:inset 0 -8px 0 rgba(0,0,0,.15);
+      transition:width .6s ease;
+    }
+
+    .progress-note{
+      margin-top:12px;
+      font-size:14px;
+      line-height:1.7;
+      color:#d6e6f8;
+    }
+
+    .vote-board form{
+      display:grid;
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .field label{
+      display:block;
+      margin-bottom:8px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+      font-size:12px;
+      color:#fff1b7;
+    }
+
+    .field input,
+    .field select{
+      width:100%;
+      border:4px solid #000;
+      background:#f1f7ff;
+      color:#0a1221;
+      padding:14px 16px;
+      font:700 15px/1 Inter,system-ui,sans-serif;
+      outline:none;
+      box-shadow:inset 0 -6px 0 rgba(0,0,0,.08);
+    }
+
+    .field input:focus,
+    .field select:focus{
+      outline:4px solid rgba(255,167,0,.35);
+      outline-offset:2px;
+    }
+
+    .tiny{
+      font-size:13px;
+      line-height:1.6;
+      color:#d0def1;
+    }
+
+    .note-strip{
+      margin-top:16px;
+      padding:14px;
+      border:4px solid #000;
+      background:linear-gradient(180deg, #513214, #39230d);
+      color:#fff4da;
+      font-size:14px;
+      line-height:1.7;
+    }
+
+    .faq-grid{
+      display:grid;
+      gap:12px;
+    }
+
+    .faq-item{
+      border:4px solid #000;
+      background:#162439;
+      padding:14px 16px;
+      box-shadow:0 8px 0 rgba(0,0,0,.18);
+    }
+
+    .faq-item strong{
+      display:block;
+      margin-bottom:8px;
+      color:#bff58d;
+      font-size:14px;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+    }
+
+    .faq-item p{
+      color:#edf4fd;
+      line-height:1.72;
+      font-size:15px;
+    }
+
+    .footer{
+      padding:34px 0 56px;
+    }
+
+    .footer-shell{
+      border:6px solid #000;
+      background:linear-gradient(180deg, #243955, #18263a);
+      box-shadow:var(--shadow);
+      padding:18px;
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+
+    .footer-copy{
+      color:#e3eefc;
+      font-weight:800;
+      line-height:1.7;
+    }
+
+    .footer-copy strong{color:#fff1b7}
+
+    .footer-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .footer-links a{
+      border:4px solid #000;
+      padding:10px 12px;
+      background:#2a4365;
+      font-weight:800;
+      font-size:13px;
+      box-shadow:0 8px 0 rgba(0,0,0,.18);
+    }
+
+    .footer-links a:hover{transform:translateY(-2px)}
+
+    .status-live{
+      color:#9df171;
+      font-weight:900;
+    }
+
+    .status-off{
+      color:#ffb3b3;
+      font-weight:900;
+    }
+
+    @media (max-width: 1080px){
+      .hero-content,
+      .crafting-zone,
+      .announcement-strip{
+        grid-template-columns:1fr;
+      }
+
+      .feature-board,
+      .faq-board,
+      .feature-list,
+      .vote-board,
+      .tile{
+        border-right:none;
+      }
+
+      .tile,
+      .feature-board,
+      .feature-list,
+      .faq-board,
+      .vote-board{
+        border-bottom:4px solid #000;
+      }
+
+      .section-head{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .section-head p{text-align:left}
+    }
+
+    @media (max-width: 900px){
+      .hero-content{padding:36px 20px 182px}
+      .brand-name{font-size:16px; line-height:1.35}
+      .topbar-inner{padding:12px 0}
+    }
+
+    @media (max-width: 720px){
+      .topbar-inner,
+      .hud{
+        align-items:flex-start;
+      }
+
+      .topbar-inner{
+        flex-direction:column;
+      }
+
+      .hud{justify-content:flex-start}
+      .hero-title{max-width:none}
+      .inventory-grid{grid-template-columns:1fr}
+      .server-ip{flex-direction:column; align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top" aria-label="MC.FMPT.NET home">
+        <span class="brand-kicker">FMPT Student Hub × Minecraft</span>
+        <span class="brand-name">MC.FMPT.NET</span>
+        <span class="brand-sub">Minecraft 1.21 pre-launch page for FMPT med & pharma students</span>
+      </a>
+
+      <div class="hud">
+        <div class="hud-pill">Version <strong>1.21</strong></div>
+        <div class="hud-pill">Server IP <strong>play.fmpt.net</strong></div>
+        <div class="hud-pill">Status <span class="status-off">Not launched</span></div>
+        <a class="hud-btn" href="#vote">Vote to start</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="pixel-shell skyline">
+        <div class="mountains"></div>
+        <div class="cross" aria-hidden="true"></div>
+        <div class="terrain"></div>
+
+        <div class="hero-content">
+          <div>
+            <div class="title-chip">⛏️ MEDICAL SMP · PRE-LAUNCH</div>
+            <h1 class="hero-title">A <em>Med-themed</em> Minecraft server for FMPT students.</h1>
+            <p class="hero-copy">
+              <strong>MC.FMPT.NET</strong> is the landing page for our future Minecraft server. The actual in-game server address will be <strong>play.fmpt.net</strong>, and it is planned for <strong>Minecraft Java 1.21</strong>.
+              <br><br>
+              It is <strong>not launched yet</strong>. We are first collecting interest to see whether enough FMPT students want it. Once we reach <strong>50 submissions</strong>, we launch the server and set up the best configuration possible for our community.
+            </p>
+
+            <div class="hero-actions">
+              <a class="pixel-btn primary" href="#vote">🩺 Start the launch vote</a>
+              <a class="pixel-btn secondary" href="#features">💊 Planned features</a>
+              <a class="pixel-btn dark" href="#faq">📘 How it will work</a>
+            </div>
+          </div>
+
+          <aside class="hero-side">
+            <div class="pixel-panel">
+              <h3>Launch Protocol</h3>
+              <p>
+                We only need <strong>3 quick details</strong> to start building correctly:
+                your <strong>email</strong>, your <strong>Minecraft username</strong>, and whether you play <strong>cracked or original</strong>.
+              </p>
+            </div>
+
+            <div class="pixel-panel">
+              <h3>Server Snapshot</h3>
+              <div class="server-ip">
+                <span>Planned in-game address</span>
+                <code>play.fmpt.net</code>
+              </div>
+              <p style="margin-top:14px">
+                Theme: <strong>health / doctor / med-school</strong><br>
+                Style: chill SMP + custom themed builds + FMPT community vibes
+              </p>
+            </div>
+
+            <div class="pixel-panel">
+              <h3>Current Status</h3>
+              <p>
+                <span class="status-off">Not launched yet.</span> This page is a pre-launch rally point.
+                Help us know if the FMPT community actually wants this before we open the server.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <div class="pixel-line"></div>
+
+    <section class="section" id="features">
+      <div class="pixel-shell section-frame">
+        <div class="section-head">
+          <h2>Why this server could be genuinely fun</h2>
+          <p>
+            Not just another random SMP. The idea is to make it feel like it belongs to FMPT students: med-school flavor, pharmacy jokes, doctor builds, chill vibes, and a good break from study pressure.
+          </p>
+        </div>
+
+        <div class="announcement-strip">
+          <div class="tile">
+            <strong>Minecraft 1.21</strong>
+            <p>Built around a modern Java version from the start so the experience feels current and stable.</p>
+          </div>
+          <div class="tile">
+            <strong>Health-themed world</strong>
+            <p>Hospital spawn, anatomy-inspired zones, pharmacy labs, healing kits, medical signs, and FMPT-flavored lore.</p>
+          </div>
+          <div class="tile">
+            <strong>Launch after 50 votes</strong>
+            <p>No empty promise. Once the page reaches 50 valid submissions, we move from idea to actual rollout.</p>
+          </div>
+        </div>
+
+        <div class="crafting-zone">
+          <div class="feature-board">
+            <div class="section-mini">Planned server features</div>
+            <p class="board-copy">
+              Here is the kind of world we want to build: something playful, a bit nerdy, recognizably medical, and easy to join for both hardcore players and people who just want a peaceful evening on campus vibes in block form.
+            </p>
+
+            <div class="inventory-grid">
+              <div class="slot">
+                <span class="name">🏥 Hospital Spawn</span>
+                <p>A central spawn inspired by a blocky teaching hospital with emergency wing, ward signs, clinic corridors, and pharmacy counters.</p>
+              </div>
+              <div class="slot">
+                <span class="name">🧪 Pharmacy Lab</span>
+                <p>Brewing-heavy spaces themed like pharmaceutics labs, recipe rooms, herb gardens, and potion stations with academic flavor.</p>
+              </div>
+              <div class="slot">
+                <span class="name">🦴 Anatomy Zone</span>
+                <p>Large-scale bones, organs, anatomy halls, museum-style builds, and themed parkour or discovery areas for fun exploration.</p>
+              </div>
+              <div class="slot">
+                <span class="name">🌙 Low-stress SMP</span>
+                <p>Friendly survival focus, clean rules, community building, and a better place to unwind after long days of lectures or exams.</p>
+              </div>
+              <div class="slot">
+                <span class="name">🎓 FMPT Identity</span>
+                <p>Student groups, promo banners, faculty references, med/pharma humor, and world landmarks that actually feel ours.</p>
+              </div>
+              <div class="slot">
+                <span class="name">🛡️ Useful Protections</span>
+                <p>Depending on the final setup: anti-grief, moderation tools, secure spawn area, and quality-of-life rules to keep it chill.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-list">
+            <div class="section-mini">Practical reasons the vote matters</div>
+            <ul class="med-list">
+              <li><b>Email</b> helps us notify interested players when the server is actually ready.</li>
+              <li><b>Minecraft name</b> helps with planning access, testing, whitelist ideas, and early community setup.</li>
+              <li><b>Cracked / Original</b> is essential because it changes how the server should be configured from day one.</li>
+              <li><b>50 submissions</b> is our minimum threshold to justify launch effort, moderation setup, and long-term maintenance.</li>
+              <li><b>play.fmpt.net</b> is the intended in-game domain so the project still feels connected to the FMPT ecosystem.</li>
+            </ul>
+
+            <div class="progress-wrap">
+              <div class="progress-meta">
+                <span>Launch progress</span>
+                <span><strong id="voteCountText">0</strong> / 50 submissions</span>
+              </div>
+              <div class="progress-bar" aria-hidden="true">
+                <div class="progress-fill" id="progressFill"></div>
+              </div>
+              <p class="progress-note">
+                This counter is a visual target for the page. Update the number in the script whenever you want the bar to reflect the real Formspark total.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-board" id="faq">
+            <div class="section-mini">How the launch will work</div>
+            <div class="faq-grid">
+              <div class="faq-item">
+                <strong>Is it already online?</strong>
+                <p>No. This is a pre-launch page only. The Minecraft server itself is not live yet.</p>
+              </div>
+              <div class="faq-item">
+                <strong>What version will it use?</strong>
+                <p>The server is planned for <b>Minecraft Java 1.21</b>.</p>
+              </div>
+              <div class="faq-item">
+                <strong>What will the server IP be?</strong>
+                <p>The intended in-game address is <b>play.fmpt.net</b>.</p>
+              </div>
+              <div class="faq-item">
+                <strong>Why ask cracked or original?</strong>
+                <p>Because that changes setup decisions early and helps avoid building the wrong launch configuration.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="vote-board" id="vote">
+            <div class="section-mini">Vote to start the server</div>
+            <p class="board-copy">
+              This is not a long application. It is simply a launch vote. Leave your details so we can measure real interest and configure the server properly.
+            </p>
+
+            <form id="launchForm" action="https://submit-form.com/fApbLO1Rm" method="POST">
+              <input type="hidden" name="_redirect" value="https://mc.fmpt.net/thanks" />
+              <input type="hidden" name="form_name" value="MC FMPT Launch Vote" />
+              <input type="hidden" name="server_version" value="Minecraft Java 1.21" />
+              <input type="hidden" name="planned_server_ip" value="play.fmpt.net" />
+
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="you@example.com" required />
+              </div>
+
+              <div class="field">
+                <label for="mcname">Minecraft name</label>
+                <input id="mcname" name="minecraft_name" type="text" placeholder="Your in-game name" maxlength="32" required />
+              </div>
+
+              <div class="field">
+                <label for="edition">Cracked or original</label>
+                <select id="edition" name="account_type" required>
+                  <option value="" selected disabled>Select one</option>
+                  <option value="Original / Premium">Original / Premium</option>
+                  <option value="Cracked">Cracked</option>
+                </select>
+              </div>
+
+              <button class="pixel-btn primary" type="submit">🩺 Count my vote</button>
+            </form>
+
+            <div class="note-strip">
+              We only collect the 3 things needed for launch planning: <b>email</b>, <b>Minecraft name</b>, and <b>cracked/original</b>. Nothing else.
+            </div>
+
+            <p class="tiny" style="margin-top:12px">
+              Using Formspark here keeps the page lightweight and easy to maintain. Once the threshold is reached, launch details can be sent to the submitted emails.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="pixel-shell section-frame">
+        <div class="section-head">
+          <h2>Extra things that would make this even better</h2>
+          <p>
+            These are optional, but they would fit the project well once the server is alive and the community starts growing.
+          </p>
+        </div>
+
+        <div class="announcement-strip">
+          <div class="tile">
+            <strong>Study-break events</strong>
+            <p>Small mini-events during revision season: short contests, scavenger hunts, relaxed building evenings, or promo meetups.</p>
+          </div>
+          <div class="tile">
+            <strong>Faculty landmarks</strong>
+            <p>Recreate recognizable FMPT-inspired spaces in Minecraft so the server feels familiar and special instead of generic.</p>
+          </div>
+          <div class="tile">
+            <strong>Roleplay-lite flavor</strong>
+            <p>Doctor coats, pharmacy counters, triage zones, ambulance decor, anatomy museums, clinic signage, and other thematic fun.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="footer">
+      <div class="pixel-shell footer-shell">
+        <div class="footer-copy">
+          <strong>MC.FMPT.NET</strong><br>
+          Minecraft 1.21 pre-launch page · planned server IP: <strong>play.fmpt.net</strong><br>
+          Status: <span class="status-off">not launched</span> · launch target: <strong>50 submissions</strong>
+        </div>
+
+        <div class="footer-links">
+          <a href="#vote">Vote</a>
+          <a href="#features">Features</a>
+          <a href="#faq">FAQ</a>
+          <a href="mailto:contact@fmpt.net">Contact</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Update this number manually whenever you want the progress bar to reflect the real submission count.
+    const CURRENT_SUBMISSIONS = 0;
+    const GOAL = 50;
+
+    const countEl = document.getElementById('voteCountText');
+    const fillEl = document.getElementById('progressFill');
+
+    if (countEl && fillEl) {
+      const safeCount = Math.max(0, Math.min(CURRENT_SUBMISSIONS, GOAL));
+      const pct = (safeCount / GOAL) * 100;
+      countEl.textContent = safeCount;
+      fillEl.style.width = pct + '%';
+    }
+  </script>
+</body>
+</html>
