@@ -927,7 +927,7 @@
             </p>
 
             <form id="launchForm" action="https://formspree.io/f/xwvlzpyy" method="POST">
-              <input type="hidden" name="_redirect" value="https://mc.fmpt.net/thanks" />
+              <input type="hidden" name="_next" value="https://mc.fmpt.net/thanks" />
               <input type="hidden" name="form_name" value="MC FMPT Launch Vote" />
               <input type="hidden" name="server_version" value="Minecraft Java 1.21" />
               <input type="hidden" name="planned_server_ip" value="play.fmpt.net" />
@@ -1024,6 +1024,11 @@
       countEl.textContent = safeCount;
       fillEl.style.width = pct + '%';
     }
-  </script>
+document.getElementById("launchForm").addEventListener("submit", function () {
+  setTimeout(() => {
+    window.location.href = "https://mc.fmpt.net/thanks";
+  }, 800);
+});
+</script>
 </body>
 </html>
